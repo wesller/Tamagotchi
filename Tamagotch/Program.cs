@@ -17,8 +17,8 @@ internal class Program
         Console.Write("Digite uma especie para maiores informações:");
         string especieDetalhada = Console.ReadLine();
         Console.Clear();
+        Console.WriteLine(new string('-',40));
         string detalhe = EspecieApi.Caracteristicas(especieDetalhada);
-        Console.WriteLine(detalhe);
     }
 }
 

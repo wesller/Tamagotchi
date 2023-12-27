@@ -1,6 +1,7 @@
 ﻿using Tamagotch.Modelos;
 using System.Text.Json;
 using System.Collections.Generic;
+using System.Threading.Tasks.Sources;
 
 
 namespace Tamagotch.Servicos;
@@ -32,9 +33,18 @@ internal class EspecieApi
         try
         {
             HttpClient client = new HttpClient();
-            Task<string> tarefa = client.GetStringAsync($"https://pokeapi.co/api/v2/pokemon-species/{especie}/");
+            Task<string> tarefa = client.GetStringAsync($"https://pokeapi.co/api/v2/pokemon/{especie}/");
             string resposta = tarefa.Result;
             client.Dispose();
+            Mascote mascote = JsonSerializer.Deserialize<Mascote>(resposta);
+
+            Console.WriteLine($"Nome Pokemon: {especie}");
+            Console.WriteLine($"Altura: {mascote.Altura}");
+            Console.WriteLine($"Peso: {mascote.Peso}");
+            Console.WriteLine("Habilidades:");
+            foreach (var item in mascote.abilities) {
+            Console.WriteLine(item.ability.Name);
+            }
             return resposta;
 
         }
